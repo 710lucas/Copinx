@@ -23,13 +23,13 @@ public class Usuario {
         this.idade = idade;
     }
 
-    public void addSeguidor(Usuario seguidor){
+    public void addSeguidor(Usuario seguidor) throws usuarioInvalidoException {
         if(temSeguidor(seguidor))
             throw new usuarioInvalidoException("O usuario "+seguidor.getNome()+" já existe na lista de seguidores");
         seguidores.add(seguidor);
     }
 
-    public void removeSeguidor(Usuario seguidor){
+    public void removeSeguidor(Usuario seguidor) throws usuarioInvalidoException {
         if(!temSeguidor(seguidor))
             throw new usuarioInvalidoException("É necessário que o usuário "+seguidor.getNome()+" siga você para que você possa removê-lo da sua lista de seguidores");
         seguidores.remove(seguidor);
@@ -39,13 +39,13 @@ public class Usuario {
         return seguidores.contains(seguidor);
     }
 
-    public void addSeguindo(Usuario seguir){
+    public void addSeguindo(Usuario seguir) throws  usuarioInvalidoException{
         if(temSeguindo(seguir))
             throw new usuarioInvalidoException("Você já segue o usuario "+seguir.getNome());
         seguindo.add(seguir);
     }
 
-    public void removeSeguindo(Usuario seguir){
+    public void removeSeguindo(Usuario seguir) throws usuarioInvalidoException {
         if(!temSeguindo(seguir))
             throw new usuarioInvalidoException("Você precisa ser amigo deste usuário para que você possa removê-lo");
         seguindo.remove(seguir);
@@ -66,5 +66,21 @@ public class Usuario {
 
     public int getIdade() {
         return idade;
+    }
+
+    public String getNome(){
+        return nome;
+    }
+
+    public List<Usuario> getSeguidores(){
+        return seguidores;
+    }
+
+    public List<Usuario> getSeguindo() {
+        return seguindo;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
     }
 }

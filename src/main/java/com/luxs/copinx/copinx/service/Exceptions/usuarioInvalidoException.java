@@ -5,7 +5,7 @@ public class usuarioInvalidoException extends Exception{
         super();
     }
 
-    usuarioInvalidoException(String msg){
+    public usuarioInvalidoException(String msg){
         super(msg);
     }
 }
