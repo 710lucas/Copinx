@@ -10,7 +10,7 @@ import java.util.List;
 
 public class GerenciadorUsuario {
 
-    public List<Usuario> usuarios;
+    private List<Usuario> usuarios;
 
     public List<Usuario> getUsuarios() {
         return usuarios;
@@ -26,6 +26,10 @@ public class GerenciadorUsuario {
 
     public void adicionarUsuario(Usuario usuario){
         usuarios.add(usuario);
+    }
+
+    public void removeUsuario(Usuario usuario){
+        usuarios.remove(usuario);
     }
 
     public String pesquisaUsuarios(String nome){
