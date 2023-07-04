@@ -16,9 +16,10 @@ public class Usuario {
     private List<Usuario> seguindo;
     private List<Review> reviews;
 
-    public Usuario(String nome, int idade){
+    public Usuario(String nome, int idade, String senha){
         this.nome = nome;
         this.idade = idade;
+        this.senha = senha;
     }
 
     public void setIdade(int idade) {

@@ -12,6 +12,10 @@ public class GerenciadorUsuario {
 
     private List<Usuario> usuarios;
 
+    public GerenciadorUsuario(){
+        usuarios = new ArrayList<>();
+    }
+
     public List<Usuario> getUsuarios() {
         return usuarios;
     }
@@ -20,8 +24,8 @@ public class GerenciadorUsuario {
         this.usuarios = usuarios;
     }
 
-    public void adicionarUsuario(String nome, int idade){
-        usuarios.add(new Usuario(nome, idade));
+    public void adicionarUsuario(String nome, int idade, String senha){
+        usuarios.add(new Usuario(nome, idade, senha));
     }
 
     public void adicionarUsuario(Usuario usuario){
@@ -83,6 +87,14 @@ public class GerenciadorUsuario {
         for(Usuario u : usuario.getSeguidores()){
             if(u.getNome().contains(nome))
                 out+=u.getNome()+'\n';
+        }
+        return out;
+    }
+
+    public String toString(){
+        String out="";
+        for(Usuario u : usuarios){
+            out+=u.getNome()+" "+u.getIdade()+"\n";
         }
         return out;
     }

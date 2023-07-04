@@ -36,7 +36,17 @@ public class GerenciadorReview {
         review.setDescricao(novaDescricao);
     }
 
-    public GerenciadorReview ordenaReviews(){
+    public String toString(){
+        String out="";
+
+        for(Review r : getReviews()){
+            out+=r.getAutor().getNome()+" "+r.getDescricao()+" "+r.getNota()+"\n";
+        }
+
+        return out;
+    }
+
+    public GerenciadorReview ordenarReviews(){
         List<Review> r = this.getReviews();
         Collections.sort(r);
         GerenciadorReview g = new GerenciadorReview();
