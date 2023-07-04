@@ -12,9 +12,9 @@ public class Usuario {
     private String nome;
     private String senha;
     private int idade;
-    private List<Usuario> seguidores;
-    private List<Usuario> seguindo;
-    private List<Review> reviews;
+    private List<Usuario> seguidores =  new ArrayList<>();
+    private List<Usuario> seguindo = new ArrayList<>();
+    private List<Review> reviews = new ArrayList<>();
 
     public Usuario(String nome, int idade, String senha){
         this.nome = nome;

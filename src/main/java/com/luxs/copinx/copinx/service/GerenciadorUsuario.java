@@ -24,8 +24,14 @@ public class GerenciadorUsuario {
         this.usuarios = usuarios;
     }
 
-    public void adicionarUsuario(String nome, int idade, String senha){
-        usuarios.add(new Usuario(nome, idade, senha));
+    public void adicionarUsuario(String nome, int idade, String senha) throws usuarioInvalidoException {
+        try{
+            getUsuario(nome);
+        } catch (usuarioInvalidoException e) {
+            usuarios.add(new Usuario(nome, idade, senha));
+            return;
+        }
+        throw new usuarioInvalidoException("O nome informado ja existe: "+nome);
     }
 
     public void adicionarUsuario(Usuario usuario){
@@ -89,6 +95,18 @@ public class GerenciadorUsuario {
                 out+=u.getNome()+'\n';
         }
         return out;
+    }
+
+    public Usuario getUsuario(String nome) throws usuarioInvalidoException {
+        for(Usuario u : usuarios){
+            if(u.getNome().equals(nome))
+                return u;
+        }
+        throw new usuarioInvalidoException("Não é possivel encontrar um usuario com este nome");
+    }
+
+    public boolean temUsuario(String nome) throws usuarioInvalidoException {
+        return getUsuario(nome) != null;
     }
 
     public String toString(){
