@@ -9,7 +9,9 @@ public class Review implements Comparable<Review>{
     private String descricao;
     private Usuario autor;
 
-    public Review(Usuario autor, String descricao, int nota) throws notaInvalidaException {
+    private Agua agua;
+
+    public Review(Usuario autor, String descricao, int nota, Agua agua) throws notaInvalidaException {
         if(nota<1 || nota > 10){
             throw new notaInvalidaException("A nota informada deve ser entre 1 e 10");
         }
@@ -17,6 +19,7 @@ public class Review implements Comparable<Review>{
         this.autor = autor;
         this.descricao = descricao;
         this.nota = nota;
+        this.agua = agua;
     }
 
     public void setAutor(Usuario autor) {
@@ -34,6 +37,10 @@ public class Review implements Comparable<Review>{
         this.nota = nota;
     }
 
+    public void setAgua(Agua agua) {
+        this.agua = agua;
+    }
+
     public String getDescricao() {
         return descricao;
     }
@@ -44,6 +51,10 @@ public class Review implements Comparable<Review>{
 
     public Usuario getAutor() {
         return autor;
+    }
+
+    public Agua getAgua() {
+        return agua;
     }
 
     @Override

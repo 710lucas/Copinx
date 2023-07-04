@@ -1,6 +1,7 @@
 package com.luxs.copinx.copinx.service.Usuario;
 
 import com.luxs.copinx.copinx.service.Agua.Review;
+import com.luxs.copinx.copinx.service.Exceptions.reviewException;
 import com.luxs.copinx.copinx.service.Exceptions.usuarioInvalidoException;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 public class Usuario {
 
     private String nome;
+    private String senha;
     private int idade;
     private List<Usuario> seguidores;
     private List<Usuario> seguindo;
@@ -55,14 +57,29 @@ public class Usuario {
         return seguindo.contains(usuario);
     }
 
-    public void adicionaReview(Review review){
+    public void adicionaReview(Review review) throws reviewException {
+        if(reviews.contains(review))
+            throw new reviewException("Review ja existe");
         reviews.add(review);
+    }
+
+    public void removeReview(Review review) throws reviewException {
+        if(!reviews.contains(review))
+            throw new reviewException("Review não existe");
+        reviews.remove(review);
+    }
+
+    public boolean temReview(Review review){
+        return reviews.contains(review);
     }
 
     public void setNome(String nome){
         this.nome = nome;
     }
 
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
     public int getIdade() {
         return idade;
@@ -70,6 +87,10 @@ public class Usuario {
 
     public String getNome(){
         return nome;
+    }
+
+    public String getSenha(){
+        return senha;
     }
 
     public List<Usuario> getSeguidores(){
