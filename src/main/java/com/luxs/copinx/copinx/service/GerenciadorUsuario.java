@@ -4,6 +4,7 @@ import com.luxs.copinx.copinx.service.Agua.Review;
 import com.luxs.copinx.copinx.service.Exceptions.reviewException;
 import com.luxs.copinx.copinx.service.Exceptions.usuarioInvalidoException;
 import com.luxs.copinx.copinx.service.Usuario.Usuario;
+import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Component
 public class GerenciadorUsuario {
 
     private List<Usuario> usuarios;

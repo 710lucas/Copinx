@@ -4,13 +4,17 @@ import com.luxs.copinx.copinx.service.Agua.Agua;
 import com.luxs.copinx.copinx.service.Agua.Review;
 import com.luxs.copinx.copinx.service.Exceptions.aguaInvalidaException;
 import com.luxs.copinx.copinx.service.Exceptions.reviewException;
+import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
+@Component
 public class GerenciadorAgua {
 
-    private List<Agua> aguas;
+    private List<Agua> aguas = new ArrayList<>();
 
     public List<Agua> getAguas() {
         return aguas;
@@ -20,7 +24,9 @@ public class GerenciadorAgua {
         this.aguas = aguas;
     }
 
-    public void adicionarAgua(String nome, String descricao){
+    public void adicionarAgua(String nome, String descricao) throws aguaInvalidaException {
+        if(temAgua(nome))
+            throw new aguaInvalidaException("A agua informada já existe");
         aguas.add(new Agua(nome, descricao));
     }
 

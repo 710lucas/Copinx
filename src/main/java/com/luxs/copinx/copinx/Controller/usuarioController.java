@@ -3,6 +3,7 @@ package com.luxs.copinx.copinx.Controller;
 import com.luxs.copinx.copinx.service.Exceptions.usuarioInvalidoException;
 import com.luxs.copinx.copinx.service.GerenciadorUsuario;
 import com.luxs.copinx.copinx.service.Usuario.Usuario;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -13,7 +14,12 @@ import java.util.List;
 @RestController
 public class usuarioController {
 
-    GerenciadorUsuario gerenciador = new GerenciadorUsuario();
+    GerenciadorUsuario gerenciador;
+
+    @Autowired
+    public usuarioController(GerenciadorUsuario gerenciador){
+        this.gerenciador = gerenciador;
+    }
 
     @GetMapping("/api/usuario")
     public String listar(){

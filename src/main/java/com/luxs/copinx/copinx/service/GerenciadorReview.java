@@ -4,10 +4,12 @@ import com.luxs.copinx.copinx.service.Agua.Agua;
 import com.luxs.copinx.copinx.service.Agua.Review;
 import com.luxs.copinx.copinx.service.Exceptions.notaInvalidaException;
 import com.luxs.copinx.copinx.service.Usuario.Usuario;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
 
+@Component
 public class GerenciadorReview {
 
     private List<Review> reviews;
