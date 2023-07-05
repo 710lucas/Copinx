@@ -5,8 +5,12 @@ import com.luxs.copinx.copinx.service.Exceptions.reviewException;
 import com.luxs.copinx.copinx.service.Exceptions.usuarioInvalidoException;
 import com.luxs.copinx.copinx.service.Usuario.Usuario;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class GerenciadorUsuario {
 
@@ -28,6 +32,11 @@ public class GerenciadorUsuario {
         try{
             getUsuario(nome);
         } catch (usuarioInvalidoException e) {
+            try {
+                senha = hash(senha);
+            } catch (NoSuchAlgorithmException ex) {
+                throw new usuarioInvalidoException("houve um problema ao armazenar a senha");
+            }
             usuarios.add(new Usuario(nome, idade, senha));
             return;
         }
@@ -115,6 +124,50 @@ public class GerenciadorUsuario {
             out+=u.getNome()+" "+u.getIdade()+"\n";
         }
         return out;
+    }
+
+    public String login(String nome, String senha) throws usuarioInvalidoException {
+        try {
+            if(getUsuario(nome).getSenha().equals(hash(senha))){
+                getUsuario(nome).setToken(generateToken());
+                return getUsuario(nome).getToken();
+            }
+            throw new usuarioInvalidoException("A senha informada é invalida");
+        } catch (usuarioInvalidoException | NoSuchAlgorithmException e) {
+            throw new usuarioInvalidoException(e.getMessage());
+        }
+    }
+
+    public boolean logout(String nome, String token){
+        try {
+            if(getUsuario(nome).getToken()!=null && getUsuario(nome).getToken().equals(token)) {
+                getUsuario(nome).setToken(null);
+                return true;
+            }
+            return false;
+        } catch (usuarioInvalidoException e) {
+            return false;
+        }
+    }
+
+    private String hash(String input) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(input.getBytes(StandardCharsets.UTF_8));
+        String out = "";
+        for(byte b : hash){
+            out+= String.format("%02x", b);
+        }
+        return out;
+    }
+
+    private String generateToken(){
+        UUID uuid = UUID.randomUUID();
+        String uuidString = uuid.toString();
+        for(Usuario u : usuarios){
+            if(u.getToken()!=null && u.getToken().equals(uuidString))
+                uuidString = generateToken();
+        }
+        return uuidString;
     }
 
 }

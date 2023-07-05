@@ -3,15 +3,13 @@ package com.luxs.copinx.copinx.Controller;
 import com.luxs.copinx.copinx.service.Exceptions.usuarioInvalidoException;
 import com.luxs.copinx.copinx.service.GerenciadorUsuario;
 import com.luxs.copinx.copinx.service.Usuario.Usuario;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:8000")
 @RestController
 public class usuarioController {
 
@@ -30,6 +28,24 @@ public class usuarioController {
         } catch (usuarioInvalidoException e) {
             return e.getMessage();
         }
+    }
+
+    @PostMapping("/api/usuario/login")
+    public String login(@RequestParam("nome") String nome, @RequestParam("senha") String senha){
+        try{
+            String token = gerenciador.login(nome, senha);
+            return token;
+        } catch (usuarioInvalidoException e) {
+            return e.getMessage();
+        }
+    }
+
+    @PostMapping("/api/usuario/logout")
+    public String logout(@RequestParam("nome") String nome, @CookieValue("token") String token){
+        if(gerenciador.logout(nome, token)){
+            return "Logout realizado com sucesso";
+        }
+        return "Houve uma falha ao realizar o logout";
     }
 
     @PostMapping("/api/usuario/adicionarSeguindo")

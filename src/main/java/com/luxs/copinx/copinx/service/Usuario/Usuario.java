@@ -11,6 +11,7 @@ public class Usuario {
 
     private String nome;
     private String senha;
+    private String token;
     private int idade;
     private List<Usuario> seguidores =  new ArrayList<>();
     private List<Usuario> seguindo = new ArrayList<>();
@@ -94,6 +95,10 @@ public class Usuario {
         return senha;
     }
 
+    public String getToken() {
+        return token;
+    }
+
     public List<Usuario> getSeguidores(){
         return seguidores;
     }
@@ -104,5 +109,9 @@ public class Usuario {
 
     public List<Review> getReviews() {
         return reviews;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
