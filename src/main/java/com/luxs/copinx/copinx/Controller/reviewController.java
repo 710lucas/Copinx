@@ -10,6 +10,7 @@ import com.luxs.copinx.copinx.service.GerenciadorAgua;
 import com.luxs.copinx.copinx.service.GerenciadorReview;
 import com.luxs.copinx.copinx.service.GerenciadorUsuario;
 import com.luxs.copinx.copinx.service.Usuario.Usuario;
+import com.luxs.copinx.copinx.service.arquivo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +42,11 @@ public class reviewController {
             Review r = gerenciadorR.addReview(u, descricao, nota, a);
             a.addReview(r);
             u.addReview(r);
+
+            arquivo.salvar(arquivo.GERENCIADOR_REVIEW, gerenciadorR);
+            arquivo.salvar(arquivo.GERENCIADOR_USUARIO, gerenciadorU);
+            arquivo.salvar(arquivo.GERENCIADOR_AGUA, gerenciadorA);
+
             return  "Review adicionada com sucesso";
 
         } catch (aguaInvalidaException | usuarioInvalidoException | notaInvalidaException e) {

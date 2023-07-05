@@ -4,14 +4,19 @@ import com.luxs.copinx.copinx.service.Agua.Agua;
 import com.luxs.copinx.copinx.service.Agua.Review;
 import com.luxs.copinx.copinx.service.Exceptions.notaInvalidaException;
 import com.luxs.copinx.copinx.service.Usuario.Usuario;
+import org.springframework.javapoet.ClassName;
 import org.springframework.stereotype.Component;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @Component
-public class GerenciadorReview {
+public class GerenciadorReview implements Serializable {
 
     private List<Review> reviews = new ArrayList<>();
 

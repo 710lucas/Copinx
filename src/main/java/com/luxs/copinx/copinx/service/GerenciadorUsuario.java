@@ -6,6 +6,7 @@ import com.luxs.copinx.copinx.service.Exceptions.usuarioInvalidoException;
 import com.luxs.copinx.copinx.service.Usuario.Usuario;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class GerenciadorUsuario {
+public class GerenciadorUsuario implements Serializable {
 
     private List<Usuario> usuarios;
 

@@ -3,6 +3,7 @@ package com.luxs.copinx.copinx.Controller;
 import com.luxs.copinx.copinx.service.Exceptions.usuarioInvalidoException;
 import com.luxs.copinx.copinx.service.GerenciadorUsuario;
 import com.luxs.copinx.copinx.service.Usuario.Usuario;
+import com.luxs.copinx.copinx.service.arquivo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,7 @@ public class usuarioController {
     public String addUsuario(@RequestParam("nome") String nome, @RequestParam("senha") String senha, @RequestParam("idade") int idade){
         try {
             gerenciador.adicionarUsuario(nome, idade, senha);
+            arquivo.salvar(arquivo.GERENCIADOR_USUARIO, gerenciador);
             return "Usuario adicionado com sucesso";
         } catch (usuarioInvalidoException e) {
             return e.getMessage();

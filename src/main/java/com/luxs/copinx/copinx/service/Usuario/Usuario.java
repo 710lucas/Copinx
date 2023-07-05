@@ -4,10 +4,11 @@ import com.luxs.copinx.copinx.service.Agua.Review;
 import com.luxs.copinx.copinx.service.Exceptions.reviewException;
 import com.luxs.copinx.copinx.service.Exceptions.usuarioInvalidoException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Usuario {
+public class Usuario implements Serializable {
 
     private String nome;
     private String senha;

@@ -3,6 +3,7 @@ package com.luxs.copinx.copinx.Controller;
 import com.luxs.copinx.copinx.service.Agua.Agua;
 import com.luxs.copinx.copinx.service.Exceptions.aguaInvalidaException;
 import com.luxs.copinx.copinx.service.GerenciadorAgua;
+import com.luxs.copinx.copinx.service.arquivo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +40,7 @@ public class aguaController {
     public String adicionar(@RequestParam("nome") String nome, @RequestParam("descricao") String descricao){
         try {
             gerenciador.adicionarAgua(nome, descricao);
+            arquivo.salvar(arquivo.GERENCIADOR_AGUA, gerenciador);
             return "Água adicionada com sucesso";
         } catch (aguaInvalidaException e) {
             return e.getMessage();

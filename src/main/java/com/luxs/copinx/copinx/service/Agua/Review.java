@@ -3,7 +3,9 @@ package com.luxs.copinx.copinx.service.Agua;
 import com.luxs.copinx.copinx.service.Exceptions.notaInvalidaException;
 import com.luxs.copinx.copinx.service.Usuario.Usuario;
 
-public class Review implements Comparable<Review>{
+import java.io.Serializable;
+
+public class Review implements Comparable<Review>, Serializable {
 
     private int nota; //1 - 10, depois dividir por 2
     private String descricao;

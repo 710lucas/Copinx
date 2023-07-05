@@ -6,13 +6,14 @@ import com.luxs.copinx.copinx.service.Exceptions.aguaInvalidaException;
 import com.luxs.copinx.copinx.service.Exceptions.reviewException;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 
 @Component
-public class GerenciadorAgua {
+public class GerenciadorAgua implements Serializable {
 
     private List<Agua> aguas = new ArrayList<>();
 

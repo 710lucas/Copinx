@@ -2,10 +2,11 @@ package com.luxs.copinx.copinx.service.Agua;
 
 import com.luxs.copinx.copinx.service.Exceptions.reviewException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Agua implements Comparable<Agua>{
+public class Agua implements Comparable<Agua>, Serializable {
 
 
     private String nome;
