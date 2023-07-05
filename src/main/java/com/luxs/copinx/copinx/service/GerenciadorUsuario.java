@@ -73,7 +73,7 @@ public class GerenciadorUsuario {
     }
 
     public void adicionarReview(Review review, Usuario usuario) throws reviewException {
-        usuario.adicionaReview(review);
+        usuario.addReview(review);
     }
 
     public void removerReview(Review review, Usuario usuario) throws reviewException {

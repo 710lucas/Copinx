@@ -63,6 +63,12 @@ public class GerenciadorAgua {
         return false;
     }
 
+    public Agua getAgua(String nome) throws aguaInvalidaException {
+        for(Agua a : aguas)
+            if(a.getNome().equals(nome))
+                return a;
+        throw new aguaInvalidaException("A agua informada não existe");
+    }
 
     public String toString(){
         String out = "";

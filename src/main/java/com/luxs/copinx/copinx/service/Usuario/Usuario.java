@@ -59,7 +59,7 @@ public class Usuario {
         return seguindo.contains(usuario);
     }
 
-    public void adicionaReview(Review review) throws reviewException {
+    public void addReview(Review review) throws reviewException {
         if(reviews.contains(review))
             throw new reviewException("Review ja existe");
         reviews.add(review);

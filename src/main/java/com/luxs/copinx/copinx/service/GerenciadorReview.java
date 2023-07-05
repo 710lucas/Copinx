@@ -6,13 +6,14 @@ import com.luxs.copinx.copinx.service.Exceptions.notaInvalidaException;
 import com.luxs.copinx.copinx.service.Usuario.Usuario;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @Component
 public class GerenciadorReview {
 
-    private List<Review> reviews;
+    private List<Review> reviews = new ArrayList<>();
 
     public List<Review> getReviews() {
         return reviews;
@@ -22,8 +23,10 @@ public class GerenciadorReview {
         this.reviews = reviews;
     }
 
-    public void addReview(Usuario autor, String descricao, int nota, Agua agua) throws notaInvalidaException {
-        reviews.add(new Review(autor, descricao, nota, agua));
+    public Review addReview(Usuario autor, String descricao, int nota, Agua agua) throws notaInvalidaException {
+        Review r = new Review(autor, descricao, nota, agua);
+        reviews.add(r);
+        return r;
     }
 
     public void addReview(Review review){
@@ -42,16 +45,16 @@ public class GerenciadorReview {
         String out="";
 
         for(Review r : getReviews()){
-            out+=r.getAutor().getNome()+" "+r.getDescricao()+" "+r.getNota()+"\n";
+            out+=r.getAutor().getNome()+" "+r.getAgua().getNome()+" "+r.getDescricao()+" "+r.getNota()+"\n";
         }
 
         return out;
     }
 
-    public GerenciadorReview ordenarReviews(){
-        List<Review> r = this.getReviews();
+    public GerenciadorReview ordenarReviews(List<Review> r){
         Collections.sort(r);
         GerenciadorReview g = new GerenciadorReview();
+        g.setReviews(r);
         return g;
     }
 
