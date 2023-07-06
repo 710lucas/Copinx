@@ -111,10 +111,19 @@ public class GerenciadorUsuario implements Serializable {
 
     public Usuario getUsuario(String nome) throws usuarioInvalidoException {
         for(Usuario u : usuarios){
-            if(u.getNome().equals(nome))
+            if(u.getNome()!=null && u.getNome().equals(nome))
                 return u;
         }
         throw new usuarioInvalidoException("Não é possivel encontrar um usuario com este nome");
+    }
+
+    public Usuario getUsuarioByToken(String token) throws usuarioInvalidoException {
+        for(Usuario u : usuarios){
+            if(u.getToken()!=null && u.getToken().equals(token))
+                return u;
+        }
+
+        throw new usuarioInvalidoException("Não é possivel encontrar um usuario com este token");
     }
 
     public boolean temUsuario(String nome) throws usuarioInvalidoException {

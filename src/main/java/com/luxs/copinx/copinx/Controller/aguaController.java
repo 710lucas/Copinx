@@ -24,6 +24,14 @@ public class aguaController {
             gerenciador.adicionarAgua(new Agua("Indaia","A melhor água do Brasil!"));
             gerenciador.adicionarAgua(new Agua("Oraci13","A melhor água do mundo!"));
             gerenciador.adicionarAgua(new Agua("AguasClaras","Criada em 1918, a Águas Claras te proporciona uma agua com um gosto inesquecível!"));
+            gerenciador.adicionarAgua(new Agua("AguasClaras2","Criada em 1918, a Águas Claras te proporciona uma agua com um gosto inesquecível!"));
+            gerenciador.adicionarAgua(new Agua("AguasClaras3","Criada em 1918, a Águas Claras te proporciona uma agua com um gosto inesquecível!"));
+            gerenciador.adicionarAgua(new Agua("AguasClaras4","Criada em 1918, a Águas Claras te proporciona uma agua com um gosto inesquecível!"));
+            gerenciador.adicionarAgua(new Agua("AguasClaras5","Criada em 1918, a Águas Claras te proporciona uma agua com um gosto inesquecível!"));
+            gerenciador.adicionarAgua(new Agua("AguasClaras6","Criada em 1918, a Águas Claras te proporciona uma agua com um gosto inesquecível!"));
+            gerenciador.adicionarAgua(new Agua("AguasClaras7","Criada em 1918, a Águas Claras te proporciona uma agua com um gosto inesquecível!"));
+            gerenciador.adicionarAgua(new Agua("AguasClaras8","Criada em 1918, a Águas Claras te proporciona uma agua com um gosto inesquecível!"));
+            gerenciador.adicionarAgua(new Agua("AguasClaras9","Criada em 1918, a Águas Claras te proporciona uma agua com um gosto inesquecível!"));
         } catch (aguaInvalidaException e) {
             return e.getMessage();
         }

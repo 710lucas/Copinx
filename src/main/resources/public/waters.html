@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Copinx</title>
+        <link rel="stylesheet" href="stylePages.css">
+    </head>
+
+    <body>
+
+        <div class="navbar">
+            <div class="copinx" onclick="location.href='/home.html'">
+                Copinx
+            </div>
+
+            <div class="navbar-item" onclick="location.href='/profile.html'">
+                Profile
+            </div>
+            <div class="navbar-item" style="margin-left: 90vw;" onclick="location.href='/friends.html'">
+                Friends
+            </div>
+            <div class="navbar-item" style="margin-left: 85vw;" onclick="location.href='/waters.html'">
+                Waters
+            </div>
+        </div>
+
+        <div class="watersTitle">Waters</div>
+        <div class="waterSearchBarContainer">
+            <input type="text" onkeyup="changeConteudo()" id="searchWater" placeholder="Search water" class="waterSearchBar">
+        </div>
+
+        <div class="waterContainer" id="waters">
+
+        </div>
+
+    </body>
+
+    <script>
+
+        var listaAgua;
+        var conteudo = "";
+
+        fetchWaters()
+
+        function changeConteudo(){
+            conteudo = document.getElementById("searchWater").value
+            console.log(conteudo)
+            clearDiv();
+            loadWaters(listaAgua)
+        }
+
+
+        function fetchWaters(){
+            url = "http://127.0.0.1:8080/api/aguas"
+            fetch(url, {method: "GET"})
+            .then(function (response){
+                return response.text();
+            })
+            .then(function (response){
+                listaAgua = response;
+                loadWaters(response)
+            })
+        }
+
+        function clearDiv(){
+            document.getElementById("waters").innerHTML = ""
+        }
+
+        function loadWaters(response){
+            aguas = response.split("\n")
+            for(var i = 0; i<aguas.length-1; i++){
+                div = document.createElement("div")
+                div.className+="waterItem"
+                div.setAttribute("id", i)
+                div.setAttribute("onclick", "water("+i+")")
+
+                nome = document.createElement("div")
+                nome.className+="friendName"
+                nome.innerText = aguas[i].split(";")[0]
+                nome.style.marginTop = "255px";
+
+                div.appendChild(nome)
+                if(nome.innerText.toLowerCase().includes(conteudo.toLowerCase())){
+                    document.getElementById("waters").prepend(div)
+                }
+
+                console.log(nome.innerText)
+                console.log(conteudo)
+            }
+        }
+
+
+    </script>
+
+
+</html>

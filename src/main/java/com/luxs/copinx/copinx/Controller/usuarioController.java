@@ -1,17 +1,20 @@
 package com.luxs.copinx.copinx.Controller;
 
+import com.luxs.copinx.copinx.service.Agua.Review;
 import com.luxs.copinx.copinx.service.Exceptions.usuarioInvalidoException;
 import com.luxs.copinx.copinx.service.GerenciadorUsuario;
 import com.luxs.copinx.copinx.service.Usuario.Usuario;
 import com.luxs.copinx.copinx.service.arquivo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:8000")
+@CrossOrigin(origins = "http://localhost:8000", allowCredentials = "true")
 @RestController
 public class usuarioController {
 
@@ -76,19 +79,34 @@ public class usuarioController {
         }
     }
 
-    @PostMapping("/api/usuario/listarSeguindo")
-    public String listarSeguindo(@RequestParam("nome") String nome){
+    @GetMapping("/api/usuario/listarSeguindo")
+    public ResponseEntity<String> listarSeguindo(@RequestParam("nome") String nome){
         try {
             List<Usuario> seguindo = gerenciador.getUsuario(nome).getSeguindo();
             String out = "";
             for(Usuario u : seguindo){
                 out+=u.getNome()+"\n";
             }
-            return out;
+            return ResponseEntity.status(HttpStatus.OK).body(out);
         } catch (usuarioInvalidoException e) {
-            return e.getMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+    @GetMapping("/api/getUsuarioByToken")
+    public ResponseEntity<String> getByToken(@RequestParam("token") String token){
+        if(token == null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("É necessário fazer login");
+
+        try {
+            String usuario = gerenciador.getUsuarioByToken(token).getNome();
+            return ResponseEntity.status(HttpStatus.OK).body(usuario);
+        } catch (usuarioInvalidoException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não foi possivel encontrar este usuário");
+        }
+
+    }
+
     @PostMapping("/api/usuario/listarSeguidores")
     public String listarSeguidores(@RequestParam("nome") String nome) {
         try {
@@ -100,6 +118,32 @@ public class usuarioController {
             return out;
         } catch (usuarioInvalidoException e) {
             return e.getMessage();
+        }
+    }
+
+    @GetMapping("/api/usuario/getReviews")
+    public ResponseEntity<String> listarReviews(@RequestParam("nome") String nome){
+        try {
+            String out="";
+            for(Review r : gerenciador.getUsuario(nome).getReviews()){
+                out+=r.toString()+";"+gerenciador.getUsuario(nome).getReviews().indexOf(r)+"\n";
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(out);
+        } catch (usuarioInvalidoException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/api/usuario/getAguas")
+    public ResponseEntity<String> listarAguas(@RequestParam("nome") String nome){
+        try {
+            String out="";
+            for(Review r : gerenciador.getUsuario(nome).getReviews()){
+                out+=r.getAgua().getNome()+"\n";
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(out);
+        } catch (usuarioInvalidoException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 

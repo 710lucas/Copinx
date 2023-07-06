@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Copinx register</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body class="background">
+
+        <img class="logo" src="Logo.svg">
+        <div class="loginForm">
+            <p class="loginTitulo" id="title">Register</p>
+            
+            <input type="text" id="username" style="margin-top: 40px;" class="username" placeholder="Username">
+            <input type="password" id="password" class="username" style="margin-top: 40px;" placeholder="Password">
+            <input type="password" id="password2" class="username" style="margin-top: 40px;" placeholder="Confirm password">
+            <button type="submit" id="button" onclick="login()" class="loginBotao">Login</button>
+            <p style="font-family: Roboto; color: #A1C3F6; font-size: 16px; text-align: center;">or <a href="login.html" style="color: white;">login</a></p>
+        </div>
+    </body>
+    <script>
+
+        function login(){
+            document.getElementById("title").innerHTML = "Register"
+            usuario = document.getElementById("username").value
+            password = document.getElementById("password").value 
+            password2 = document.getElementById("password2").value 
+            if(password2 != password){
+                document.getElementById("title").innerHTML+="<p class='loginTitulo' style='color: #aa1020; padding-top: 10px; font-size: 1.2rem; margin-bottom: -2rem;'>Passwords are different.</p>"
+            }
+
+            var url = "http://127.0.0.1:8080/api/usuario/add?"
+            url+= new URLSearchParams({nome: usuario, senha: password, idade: 18})
+
+            fetch(url, {method: "POST"})
+            .then(function (response){
+                return response.text();
+            })
+            .then(function (text){
+                document.getElementById("title").innerHTML+="<p class='loginTitulo' style='color: #aa1020; padding-top: 10px; font-size: 1.2rem; margin-bottom: -2rem;'>"+text+".</p>"
+            })
+
+        }
+
+    </script>
+
+</html>

@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Copinx</title>
+        <link rel="stylesheet" href="stylePages.css">
+        <link rel="stylesheet" href="styleProfile.css">
+    </head>
+
+    <body>
+
+        <div class="navbar">
+            <div class="copinx" onclick="location.href='/home.html'">
+                Copinx
+            </div>
+
+            <div class="navbar-item" onclick="location.href='/profile.html'">
+                Profile
+            </div>
+            <div class="navbar-item" style="margin-left: 90vw;" onclick="location.href='/friends.html'">
+                Friends
+            </div>
+            <div class="navbar-item" style="margin-left: 85vw;" onclick="location.href='/waters.html'">
+                Waters
+            </div>
+        </div>
+
+
+        <div class="userProfileContainer">
+
+            <div class="userCircle"></div>
+            <div class="information">
+
+                <div class="username">
+                    Lucas
+                </div>
+                <div class="descricao">
+                    I reaaaaly like water lollllll
+                </div>
+                <div class="seguidores">
+                    0 seguindo  0 seguidores
+                </div>
+                <div class="seguir">
+                    Follow
+                </div>
+            </div>
+
+        </div>
+
+        <div class="welcome" id="newWaters" style="margin-bottom: 15px;">Recent reviews</div> 
+
+        <div class="friends" id="waters" style="margin-top: 0px;">
+
+        </div>
+
+    </body>
+
+    <script>
+
+        var usuarioNome;
+        var listaAmigos;
+        var listaAgua;
+        loadHome();
+
+        function loadHome(){
+            //fetch friends
+
+            var url = "http://127.0.0.1:8080/api/getUsuarioByToken"
+            var cookie = parseCookies()["token"]
+            url+="?token="+cookie
+            fetch(url, {method: "GET"})
+            .then(function (response){
+                if(response.status == 200){
+                    return response.text();
+                }
+                return null
+            })
+            .then(function (text){
+                if(text == null){
+                    return
+                }
+                usuarioNome = text;
+                console.log(text)
+                fetchWaters(usuarioNome)
+            })
+        }
+
+        function fetchWaters(usuario){
+
+            //fetch new waters
+
+            url = "http://127.0.0.1:8080/api/usuario/getReviews?nome="+usuario
+            fetch(url, {method: "GET"})
+            .then(function (response){
+                return response.text();
+            })
+            .then(function (response){
+                listaAgua = response;
+                loadWaters(response)
+            })
+        }
+
+        function loadWaters(response){
+            aguas = response.split("\n")
+            for(var i = 0; i<aguas.length-1 && i<4; i++){
+                div = document.createElement("div")
+                div.className+="waterImage"
+                div.setAttribute("id", i)
+                console.log(aguas[i].split(";"))
+                div.setAttribute("onclick","review("+aguas[i].split(";")[3]+' \, \"'+aguas[i].split(";")[1]+"\")")
+
+                nome = document.createElement("div")
+                nome.className+="friendName"
+                nome.innerText = aguas[i].split(";")[0]
+                nome.style.marginTop = "345px";
+
+                div.appendChild(nome)
+                document.getElementById("waters").prepend(div)
+            }
+        }
+
+
+        function review(reviewNumber, user){
+            location.href="/review/"+user+"/"+reviewNumber;
+        }
+
+        function loadFriends(username){
+
+
+
+            url = "http://127.0.0.1:8080/api/usuario/listarSeguindo?nome="+username
+            fetch(url, {method: "GET"})
+            .then(function (response){
+                if(response.status == 200){
+                    return response.text();
+                }
+                else
+                    return null
+            })
+            .then(function (text){
+                if(text == null)
+                    return
+               
+                listaAmigos = text.split("\n");
+                
+            }).then(function (){
+
+                for(var i = 0; i<listaAmigos.length-1 && i<7; i++){
+                    div = document.createElement("div")
+                    div.className+="friendImage"
+                    div.setAttribute("onclick", "friend("+i+")")
+                    div.setAttribute("id", i)
+                    nome = document.createElement("div")
+                    nome.className+="friendName"
+                    nome.innerText=listaAmigos[i]
+                    div.appendChild(nome)
+                    document.getElementById("friends").prepend(div)
+                }
+
+                if(listaAmigos>=7){
+                    document.getElementById("friendImage").innerHTML="See more..."
+                }
+            })
+
+        }
+
+        function friend(number){
+            location.href = "/user?name="+listaAmigos[number]
+        }
+
+
+        function parseCookies() {
+            var cookies = document.cookie.split(";");
+
+            var parsedCookies = {};
+            cookies.forEach(function(cookie) {
+                var parts = cookie.split("=");
+                var name = parts[0].trim();
+                var value = parts[1].trim();
+
+                parsedCookies[name] = value;
+            });
+
+            return parsedCookies;
+        }
+
+
+    </script>
+
+
+</html>

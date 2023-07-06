@@ -75,7 +75,7 @@ public class GerenciadorAgua implements Serializable {
         String out = "";
 
         for(Agua a : aguas){
-            out+=a.getNome()+" "+a.getDescricao()+" "+a.calculaNotaGeral()+"\n";
+            out+=a.getNome()+";"+a.getDescricao()+";"+a.calculaNotaGeral()+"\n";
         }
 
         return out;

@@ -59,6 +59,10 @@ public class Review implements Comparable<Review>, Serializable {
         return agua;
     }
 
+    public String toString(){
+        return agua.getNome()+";"+autor.getNome()+";"+descricao;
+    }
+
     @Override
     public int compareTo(Review o) {
         if(this.getNota() > o.getNota())
