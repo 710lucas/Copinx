@@ -5,6 +5,7 @@ import com.luxs.copinx.copinx.service.Exceptions.usuarioInvalidoException;
 import com.luxs.copinx.copinx.service.GerenciadorUsuario;
 import com.luxs.copinx.copinx.service.Usuario.Usuario;
 import com.luxs.copinx.copinx.service.arquivo;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +46,7 @@ public class usuarioController {
     public String login(@RequestParam("nome") String nome, @RequestParam("senha") String senha){
         try{
             String token = gerenciador.login(nome, senha);
+            System.out.println(token);
             return token;
         } catch (usuarioInvalidoException e) {
             return e.getMessage();
@@ -145,6 +147,11 @@ public class usuarioController {
         } catch (usuarioInvalidoException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
+    }
+
+    @GetMapping("/user/{name}")
+    public ResponseEntity<String> getUserProfile(@PathParam("name") String name){
+        return ResponseEntity.status(200).body("!");
     }
 
 
