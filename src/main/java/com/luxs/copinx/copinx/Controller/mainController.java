@@ -43,12 +43,12 @@ public class mainController {
 
     @GetMapping("/login")
     public String login(){
-        return "/login";
+        return "login";
     }
 
     @GetMapping("/register")
     public String register(){
-        return "/register";
+        return "register";
     }
 
     @GetMapping("/home")
