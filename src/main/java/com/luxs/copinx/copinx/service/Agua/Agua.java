@@ -61,6 +61,8 @@ public class Agua implements Comparable<Agua>, Serializable {
         for(Review r : reviews){
             nota+=r.getNota();
         }
+        System.out.println(nota);
+        System.out.println(reviews.size());
         return (nota/reviews.size());
     }
 

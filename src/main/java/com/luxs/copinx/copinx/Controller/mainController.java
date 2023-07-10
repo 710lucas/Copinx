@@ -1,10 +1,12 @@
 package com.luxs.copinx.copinx.Controller;
 
+import com.luxs.copinx.copinx.service.Exceptions.aguaInvalidaException;
 import com.luxs.copinx.copinx.service.Exceptions.usuarioInvalidoException;
 import com.luxs.copinx.copinx.service.GerenciadorAgua;
 import com.luxs.copinx.copinx.service.GerenciadorReview;
 import com.luxs.copinx.copinx.service.GerenciadorUsuario;
 import com.luxs.copinx.copinx.service.Usuario.Usuario;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,11 +19,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class mainController {
 
     GerenciadorUsuario gerenciador;
+    GerenciadorAgua gerenciadorA;
+
 
 
     @Autowired
-    public mainController(GerenciadorUsuario u){
+    public mainController(GerenciadorUsuario u, GerenciadorAgua a){
         gerenciador = u;
+        gerenciadorA = a;
     }
 
     @GetMapping("/")
@@ -99,5 +104,18 @@ public class mainController {
     }
 
 
+    @GetMapping("/water/{name}")
+    public String getWater(@PathVariable("name") String nome, Model model){
+        try {
+            model.addAttribute("waterName", gerenciadorA.getAgua(nome).getNome());
+            model.addAttribute("waterRating", gerenciadorA.getAgua(nome).calculaNotaGeral());
+            model.addAttribute("waterDescription", gerenciadorA.getAgua(nome).getDescricao());
+            return "/water";
+        } catch (aguaInvalidaException e) {
+            System.out.println(e.getMessage());
+            System.out.println(nome);
+            return "redirect:/home";
+        }
+    }
 
 }

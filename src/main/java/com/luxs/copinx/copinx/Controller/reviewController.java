@@ -35,10 +35,12 @@ public class reviewController {
     }
 
     @PostMapping("/api/review/add")
-    public String add(@RequestParam("agua") String aguaNome, @RequestParam("nota") int nota, @RequestParam("usuario") String usuario, @RequestParam("descricao") String descricao){
+    public String add(@RequestParam("agua") String aguaNome, @RequestParam("nota") int nota, @CookieValue(value = "token", required = false) String token, @RequestParam("descricao") String descricao){
+        if(token == null)
+            return "redirect:/login";
         try {
             Agua a = gerenciadorA.getAgua(aguaNome);
-            Usuario u = gerenciadorU.getUsuario(usuario);
+            Usuario u = gerenciadorU.getUsuarioByToken(token);
             Review r = gerenciadorR.addReview(u, descricao, nota, a);
             a.addReview(r);
             u.addReview(r);
@@ -73,7 +75,5 @@ public class reviewController {
             return e.getMessage();
         }
     }
-
-
 
 }

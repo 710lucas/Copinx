@@ -48,7 +48,7 @@ public class Review implements Comparable<Review>, Serializable {
     }
 
     public float getNota() {
-        return nota/2;
+        return nota;
     }
 
     public Usuario getAutor() {

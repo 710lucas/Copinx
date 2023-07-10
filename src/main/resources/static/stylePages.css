@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
+
+body{
+    background: #145794; 
+    overflow-x: hidden !important;
+    max-width: 100%;
+}
+
+.welcome{
+    display: flex;
+    width: 95%;
+    flex-direction: column;
+    flex-shrink: 0; 
+
+    color: #FFF;
+    font-size: 36px;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+
+    margin-left: 120px;
+    margin-top: 120px;
+}
+
+.friends{
+    margin-left: 120px;
+    margin-top: 70px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.friendImage{
+    margin-right: 60px;
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    background-color: white;
+    cursor: pointer;
+}
+.waterImage{
+    margin-right: 60px;
+    width: 260px;
+    height: 340px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.friendName{
+    margin-top: 105px;
+    text-align: center;
+    font-family: Inter;
+    color: white;
+}
+.copinx{
+    position: fixed;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -4.8px;
+
+    margin-top: 45px;
+    margin-left: 10px;
+    transform: translate(0, -50%);
+
+    cursor: pointer;
+}
+
+.navbar{
+    display: inline;
+    background: #3A73E1;
+    width: 100vw;
+    margin-left: -10px;
+    position: absolute;
+    top: 0;
+    flex-shrink: 0;
+    height: 90px;
+}
+
+.navbar-item{
+    position: fixed;
+    margin-left: 95vw;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.48px; 
+
+    margin-top: 50px;
+    transform: translate(0, -50%);
+    cursor: pointer;
+}
+
+.watersTitle{
+    margin-top: 125px;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -2.4px; 
+    text-align: center;
+}
+
+.waterSearchBarContainer{
+    margin-top: 15px;
+}
+
+.waterSearchBar{
+
+    margin-left: 50%;
+    transform: translate(-50%, 0);
+    background-color: transparent;
+    border: none;
+    border-bottom: solid rgba(255, 255, 255, 0.31) 1px;
+    padding-bottom: 5px;
+    width: 300px;
+    outline: none;
+    color: rgba(255, 255, 255, 0.50);
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -1.2px; 
+}
+
+.waterSearchBar::placeholder{
+    color: rgba(255, 255, 255, 0.50);
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -1.2px; 
+}
+
+.waterContainer{
+    margin-left: 50%;
+    translate: -50%;
+    margin-top: 200px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 40px;
+}
+
+.waterItem{
+    background-color: white;
+    width: 190px;
+    height: 245px;
+    margin-bottom: 80px;
+}
