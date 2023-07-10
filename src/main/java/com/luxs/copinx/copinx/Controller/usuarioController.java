@@ -54,8 +54,8 @@ public class usuarioController {
     }
 
     @PostMapping("/api/usuario/logout")
-    public String logout(@RequestParam("nome") String nome, @CookieValue("token") String token){
-        if(gerenciador.logout(nome, token)){
+    public String logout(@CookieValue("token") String token){
+        if(gerenciador.logout(token)){
             return "Logout realizado com sucesso";
         }
         return "Houve uma falha ao realizar o logout";

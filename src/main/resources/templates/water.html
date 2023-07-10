@@ -22,7 +22,7 @@
             <div class="navbar-item" style="margin-left: 90vw;" onclick="location.href='/friends'">
                 Friends
             </div>
-            <div class="navbar-item" style="margin-left: 85vw;" onclick="location.href='/waters.'">
+            <div class="navbar-item" style="margin-left: 85vw;" onclick="location.href='/waters'">
                 Waters
             </div>
         </div>
@@ -72,15 +72,8 @@
                 </div>
 
 
-                <div class="recentReviews">
-                    <div class="review">
-                        <div class="nameReview">
-                            LuizFF
-                        </div>
-                        <div class="descriptionReview">
-                            Tetse
-                        </div>
-                    </div>
+                <div class="recentReviews" id="recentReviews">
+                    Recent reviews
                 </div>
 
 
@@ -156,6 +149,38 @@
             .then(function (text){
                 alert(text);
                 location.reload();
+            })
+        }
+
+        loadReviews();
+
+        function loadReviews(){
+            waterName = location.href.split("/")
+            waterName = waterName[waterName.length-1]
+            url = "/api/"+waterName+"/getReviews"
+            fetch(url, {method: "GET"})
+            .then(function (response){
+                return response.text();
+            })
+            .then(function (text){
+                reviews = text.split("\n")
+                for(var i = reviews.length-2; i>=0 && i>reviews.length-21; i--){
+                    reviewDiv = document.createElement("div")
+                    reviewDiv.className+="review"
+
+                    reviewName = document.createElement("div")
+                    reviewName.className+="reviewName"
+
+                    reviewDescription = document.createElement("div")
+                    reviewDescription.className+="reviewDescription"
+
+                    reviewName.innerHTML+=reviews[i].split(";")[0]+" - "+reviews[i].split(";")[3]+" little copos"
+                    reviewDescription.innerHTML+=reviews[i].split(";")[2]
+
+                    reviewDiv.appendChild(reviewName)
+                    reviewDiv.appendChild(reviewDescription)
+                    document.getElementById("recentReviews").append(reviewDiv)
+                }
             })
         }
 

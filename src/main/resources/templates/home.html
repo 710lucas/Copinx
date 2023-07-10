@@ -90,12 +90,13 @@
                 div = document.createElement("div")
                 div.className+="waterImage"
                 div.setAttribute("id", i)
-                div.setAttribute("onclick", "water("+i+")")
 
                 nome = document.createElement("div")
                 nome.className+="friendName"
                 nome.innerText = aguas[i].split(";")[0]
                 nome.style.marginTop = "345px";
+
+                div.setAttribute("onclick", "location.href='/water/"+nome.innerText+"'")
 
                 div.appendChild(nome)
                 document.getElementById("waters").prepend(div)

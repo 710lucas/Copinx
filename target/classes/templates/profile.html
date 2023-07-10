@@ -42,8 +42,9 @@
                     [[${seguindo}]] following  [[${seguidores}]] followers
                 </div>
                 <div th:if="${ehUsuario}">
-                    <div class="seguir" onclick="edit()">
-                        Edit
+                    <div class="seguir" onclick="logout()">
+                        <!-- Edit -->
+                        Logout
                     </div>
                 </div>
                 <div th:if="${!ehUsuario}">
@@ -70,6 +71,16 @@
         var listaAgua;
         loadHome();
 
+        function logout(){
+            fetch("/api/usuario/logout", {method: "POST"})
+            .then(function (response){
+                return response.text();
+            })
+            .then(function (text){
+                alert(text)
+            })
+        }
+
         function goToProfile(){
             location.href="/profile/"+usuarioNome;
         }
@@ -77,24 +88,29 @@
         function loadHome(){
             //fetch friends
 
-            var url = "/api/getUsuarioByToken"
-            var cookie = parseCookies()["token"]
-            url+="?token="+cookie
-            fetch(url, {method: "GET"})
-            .then(function (response){
-                if(response.status == 200){
-                    return response.text();
-                }
-                return null
-            })
-            .then(function (text){
-                if(text == null){
-                    return
-                }
-                usuarioNome = text;
-                console.log(text)
-                fetchWaters(usuarioNome)
-            })
+            // var url = "/api/getUsuarioByToken"
+            // var cookie = parseCookies()["token"]
+            // url+="?token="+cookie
+            // fetch(url, {method: "GET"})
+            // .then(function (response){
+            //     if(response.status == 200){
+            //         return response.text();
+            //     }
+            //     return null
+            // })
+            // .then(function (text){
+            //     if(text == null){
+            //         return
+            //     }
+            //     usuarioNome = text;
+            //     console.log(text)
+            //     fetchWaters(usuarioNome)
+            // })
+
+
+            userName = location.href.split("/")
+            userName = userName[userName.length-1]
+            fetchWaters(userName)
         }
 
         function fetchWaters(usuario){

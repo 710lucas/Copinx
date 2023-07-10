@@ -50,7 +50,7 @@ public class GerenciadorReview implements Serializable {
         String out="";
 
         for(Review r : getReviews()){
-            out+=r.getAutor().getNome()+" "+r.getAgua().getNome()+" "+r.getDescricao()+" "+r.getNota()+"\n";
+            out+=r.getAutor().getNome()+";"+r.getAgua().getNome()+";"+r.getDescricao()+";"+r.getNota()+"\n";
         }
 
         return out;

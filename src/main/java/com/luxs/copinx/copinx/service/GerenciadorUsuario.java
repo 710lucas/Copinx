@@ -150,10 +150,10 @@ public class GerenciadorUsuario implements Serializable {
         }
     }
 
-    public boolean logout(String nome, String token){
+    public boolean logout(String token){
         try {
-            if(getUsuario(nome).getToken()!=null && getUsuario(nome).getToken().equals(token)) {
-                getUsuario(nome).setToken(null);
+            if(token!=null) {
+                getUsuarioByToken(token).setToken(null);
                 return true;
             }
             return false;

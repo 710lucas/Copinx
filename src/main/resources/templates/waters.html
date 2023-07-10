@@ -20,7 +20,7 @@
             <div class="navbar-item" style="margin-left: 90vw;" onclick="location.href='/friends'">
                 Friends
             </div>
-            <div class="navbar-item" style="margin-left: 85vw;" onclick="location.href='/waters.'">
+            <div class="navbar-item" style="margin-left: 85vw;" onclick="location.href='/waters'">
                 Waters
             </div>
         </div>
@@ -92,13 +92,14 @@
                 div = document.createElement("div")
                 div.className+="waterItem"
                 div.setAttribute("id", i)
-                div.setAttribute("onclick", "water("+i+")")
 
                 nome = document.createElement("div")
                 nome.className+="friendName"
                 nome.innerText = aguas[i].split(";")[0]
                 nome.style.marginTop = "255px";
 
+                div.setAttribute("onclick", "location.href='/water/"+nome.innerText+"'")
+                div.style.cursor="pointer"
                 div.appendChild(nome)
                 if(nome.innerText.toLowerCase().includes(conteudo.toLowerCase())){
                     document.getElementById("waters").prepend(div)

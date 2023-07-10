@@ -145,8 +145,49 @@ text-align: center;
 }
 
 .recentReviews{
-    margin-left: 50%;
-    transform: translate(-50%, 0);
+    margin-top: 250px;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+    position: absolute;
+    text-align: center;
+}
+
+.review{
+    text-align: start;
+    width: 620px;
+    height: 160px;
+    border-radius: 5px;
+    background: rgba(58, 115, 225, 0.22); 
+    display: flow-root;
+    margin-top: 20px;
+}
+
+.reviewName{
+    color: #FFF;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.7px; 
+    margin-left: 100px;
+    margin-top: 25px;
+}
+
+.reviewDescription{
+    margin-top: 20px;
+    margin-left: 100px;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.8px; 
 }
 
 .littleCopoReview{

@@ -3,6 +3,7 @@ package com.luxs.copinx.copinx.Controller;
 import com.luxs.copinx.copinx.service.Agua.Agua;
 import com.luxs.copinx.copinx.service.Exceptions.aguaInvalidaException;
 import com.luxs.copinx.copinx.service.GerenciadorAgua;
+import com.luxs.copinx.copinx.service.GerenciadorReview;
 import com.luxs.copinx.copinx.service.arquivo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -52,6 +53,17 @@ public class aguaController {
             return "Água adicionada com sucesso";
         } catch (aguaInvalidaException e) {
             return e.getMessage();
+        }
+    }
+
+    @GetMapping("/api/{agua}/getReviews")
+    public String getReviews(@PathVariable("agua") String agua){
+        GerenciadorReview r = new GerenciadorReview();
+        try {
+            r.setReviews(gerenciador.getAgua(agua).getReviews());
+            return r.toString();
+        } catch (aguaInvalidaException e) {
+            return "redirect:/waters";
         }
     }
 
