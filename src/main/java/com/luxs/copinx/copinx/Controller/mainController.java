@@ -110,7 +110,7 @@ public class mainController {
             model.addAttribute("waterName", gerenciadorA.getAgua(nome).getNome());
             model.addAttribute("waterRating", gerenciadorA.getAgua(nome).calculaNotaGeral());
             model.addAttribute("waterDescription", gerenciadorA.getAgua(nome).getDescricao());
-            return "waters";
+            return "water";
         } catch (aguaInvalidaException e) {
             System.out.println(e.getMessage());
             System.out.println(nome);
