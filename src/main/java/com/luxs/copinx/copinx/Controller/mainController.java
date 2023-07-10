@@ -87,7 +87,7 @@ public class mainController {
             model.addAttribute("seguidores", usuario1.getSeguidores().size());
         } catch (usuarioInvalidoException e) {
             System.out.println("laal");
-            return "/home";
+            return "home";
         }
 
         return "profile";
@@ -95,7 +95,7 @@ public class mainController {
 
     @GetMapping("/waters")
     public String getWaters(){
-        return "/waters";
+        return "waters";
     }
 
     @GetMapping("/review/{user}/{index}")
@@ -110,7 +110,7 @@ public class mainController {
             model.addAttribute("waterName", gerenciadorA.getAgua(nome).getNome());
             model.addAttribute("waterRating", gerenciadorA.getAgua(nome).calculaNotaGeral());
             model.addAttribute("waterDescription", gerenciadorA.getAgua(nome).getDescricao());
-            return "/water";
+            return "waters";
         } catch (aguaInvalidaException e) {
             System.out.println(e.getMessage());
             System.out.println(nome);
