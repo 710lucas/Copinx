@@ -14,7 +14,6 @@ import com.luxs.copinx.copinx.service.arquivo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:8000")
 @RestController
 public class reviewController {
 
