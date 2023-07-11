@@ -55,6 +55,16 @@ public class aguaController {
             return e.getMessage();
         }
     }
+    @PostMapping("/api/agua/remover")
+    public String remover(@RequestParam("nome") String nome){
+        try {
+            gerenciador.removerAgua(gerenciador.getAgua(nome));
+            arquivo.salvar(arquivo.GERENCIADOR_AGUA, gerenciador);
+            return "Água adicionada com sucesso";
+        } catch (aguaInvalidaException e) {
+            return e.getMessage();
+        }
+    }
 
     @GetMapping("/api/{agua}/getReviews")
     public String getReviews(@PathVariable("agua") String agua){
