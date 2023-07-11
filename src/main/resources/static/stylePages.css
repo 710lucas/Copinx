@@ -19,15 +19,22 @@ body{
     font-weight: 400;
     line-height: normal; 
 
-    margin-left: 120px;
+    /* margin-left: 120px; */
     margin-top: 120px;
+
+    margin-left: 50%;
+    transform: translateX(-50%);
+    max-width: 90vw;
 }
 
 .friends{
-    margin-left: 120px;
+    /* margin-left: 120px; */
+    margin-left: 4.9%;
     margin-top: 70px;
-    display: flex;
-    justify-content: flex-start;
+    display: grid;
+    /* justify-content: flex-start; */
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 40px;
 }
 
 .friendImage{
@@ -39,7 +46,7 @@ body{
     cursor: pointer;
 }
 .waterImage{
-    margin-right: 60px;
+    /* margin-right: 60px; */
     width: 260px;
     height: 340px;
     background-color: white;
@@ -82,7 +89,7 @@ body{
 
 .navbar-item{
     position: fixed;
-    margin-left: 95vw;
+    /* margin-left: 95vw; */
     color: #FFF;
     font-family: Inter;
     font-size: 24px;
@@ -94,6 +101,8 @@ body{
     margin-top: 50px;
     transform: translate(0, -50%);
     cursor: pointer;
+
+    left: 90%;
 }
 
 .watersTitle{
@@ -142,13 +151,104 @@ body{
 }
 
 .waterContainer{
-    margin-left: 50%;
-    translate: -50%;
+    /* margin-left: 50%;
+    transform: translate(-50%, 0); */
     margin-top: 200px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 40px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
+
+#friendsNav{
+    left: 85%;
+}
+
+#watersNav{
+    left: 80%;
+}
+
+@media (max-width: 1600px) {
+    .waterContainer{
+        grid-gap: 15px;
+    }
+
+    .navbar-item{
+        position: absolute;
+    }
+}
+
+@media (max-width: 1060px) and (min-width: 787px){
+    .waterContainer{
+        grid-gap: 15px;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+@media (max-width: 786px){
+    .waterContainer{
+        grid-gap: 15px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 1650px){
+
+    #friendsNav{
+        left: 84%;
+    }
+
+    #watersNav{
+        left: 78%;
+    }
+    .friends{
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+}
+
+@media (max-width: 1280px){
+
+    #friendsNav{
+        left: 82.5%;
+    }
+
+    #watersNav{
+        left: 75%;
+    }
+
+    .copinx{
+        position: absolute;
+    }
+
+    .friends{
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+@media (max-width: 1070px){
+
+    #friendsNav{
+        left: 65%;
+    }
+
+    #watersNav{
+        left: 45%;
+    }
+
+    .navbar-item{
+        left: 85%;
+    }
+    .friends{
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
 
 .waterItem{
     background-color: white;

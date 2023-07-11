@@ -2,6 +2,7 @@
 <html>
     <html xmlns:th="http://www.thymeleaf.org"></html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=0.7">
         <title>Copinx</title>
         <link rel="stylesheet" href="/stylePages.css">
     </head>
@@ -16,10 +17,10 @@
             <div class="navbar-item" onclick="goToProfile()">
                 Profile
             </div>
-            <div class="navbar-item" style="margin-left: 90vw;" onclick="location.href='/friends'">
+            <div class="navbar-item" onclick="location.href='/friends'" id="friendsNav">
                 Friends
             </div>
-            <div class="navbar-item" style="margin-left: 85vw;" onclick="location.href='/waters'">
+            <div class="navbar-item" onclick="location.href='/waters'" id="watersNav">
                 Waters
             </div>
         </div>
@@ -29,7 +30,7 @@
                 <div id="friendMessage" style="margin-top: 50px; transform: translate(0, -50%);">Add new friend</div>
         </div>
 
-        <div class="welcome" id="newWaters" style="margin-bottom: 15px;">New waters</div> 
+        <div class="welcome" id="newWaters" style="margin-bottom: 15px;">Recent reviews</div> 
 
         <div class="friends" id="waters" style="margin-top: 0px;">
 
@@ -42,10 +43,23 @@
         var usuarioNome;
         var listaAmigos;
         var listaAgua;
+        var recentReviews;
         loadHome();
 
         function goToProfile(){
             location.href="/profile/"+usuarioNome;
+        }
+
+        function fetcReviews(){
+            var url = "/api/reviews"
+            fetch(url, {method: "GET"})
+            .then(function (response){
+                return response.text();
+            })
+            .then(function (text){
+                recentReviews = text
+                loadRecentReviews(text)
+            })
         }
 
         function loadHome(){
@@ -80,8 +94,29 @@
             })
             .then(function (response){
                 listaAgua = response;
-                loadWaters(response)
+                //loadWaters(response)
             })
+
+            fetcReviews()
+        }
+
+        function loadRecentReviews(text){
+            reviews = text.split("\n")
+            for(var i = reviews.length-2; i>=0 && i>reviews.length-6; i--){
+                div = document.createElement("div")
+                div.className+="waterImage"
+                div.setAttribute("id", i)
+
+                nome = document.createElement("div")
+                nome.className+="friendName"
+                nome.innerText = reviews[i].split(";")[1]
+                nome.style.marginTop = "345px";
+
+                div.setAttribute("onclick", "location.href='/water/"+nome.innerText+"'")
+
+                div.appendChild(nome)
+                document.getElementById("waters").prepend(div)
+            }
         }
 
         function loadWaters(response){

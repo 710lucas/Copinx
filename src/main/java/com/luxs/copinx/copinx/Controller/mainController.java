@@ -52,7 +52,7 @@ public class mainController {
     }
 
     @GetMapping("/home")
-    public String homePage(@CookieValue("token") String token, Model model){
+    public String homePage(@CookieValue(value = "token", required = false) String token, Model model){
 
         try {
             model.addAttribute("nome", gerenciador.getUsuarioByToken(token).getNome());

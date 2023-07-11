@@ -1,8 +1,9 @@
 .waterInfo{
     margin-left: 50%;
     transform: translate(-50%, 0);
-    margin-top: 8%;
-    display: flex;
+    margin-top: 15vh;
+    display: -webkit-inline-box;
+
 }
 
 .waterImg{
@@ -21,6 +22,8 @@
     letter-spacing: -1.8px; 
     margin-left: 45px;
     display: flex;
+    overflow-wrap: break-word;
+    max-width: 35vw;
 }
 
 .waterType{
@@ -46,6 +49,7 @@
     margin-top: 24px;
 
     max-height: 96px;
+    max-width: 30vw;
 }
 
 .littleCopos{
@@ -154,6 +158,8 @@ text-align: center;
     line-height: normal; 
     position: absolute;
     text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .review{
@@ -196,4 +202,16 @@ text-align: center;
 
 .drinked{
 
+}
+
+
+@media (max-width: 915px){
+    .waterDescription{
+        font-size: 20px;
+    }
+}
+@media (max-width: 615px){
+    .waterDescription{
+        font-size: 18px;
+    }
 }
