@@ -1,0 +1,17 @@
+/home/lux/IdeaProjects/Copinx/src/main/java/com/luxs/copinx/copinx/service/Agua/Agua.java
+/home/lux/IdeaProjects/Copinx/src/main/java/com/luxs/copinx/copinx/service/Exceptions/usuarioInvalidoException.java
+/home/lux/IdeaProjects/Copinx/src/main/java/com/luxs/copinx/copinx/service/GerenciadorUsuario.java
+/home/lux/IdeaProjects/Copinx/src/main/java/com/luxs/copinx/copinx/service/arquivo.java
+/home/lux/IdeaProjects/Copinx/src/main/java/com/luxs/copinx/copinx/service/Exceptions/notaInvalidaException.java
+/home/lux/IdeaProjects/Copinx/src/main/java/com/luxs/copinx/copinx/AppConfig.java
+/home/lux/IdeaProjects/Copinx/src/main/java/com/luxs/copinx/copinx/Controller/usuarioController.java
+/home/lux/IdeaProjects/Copinx/src/main/java/com/luxs/copinx/copinx/service/GerenciadorAgua.java
+/home/lux/IdeaProjects/Copinx/src/main/java/com/luxs/copinx/copinx/CopinxApplication.java
+/home/lux/IdeaProjects/Copinx/src/main/java/com/luxs/copinx/copinx/service/Agua/Review.java
+/home/lux/IdeaProjects/Copinx/src/main/java/com/luxs/copinx/copinx/service/Exceptions/reviewException.java
+/home/lux/IdeaProjects/Copinx/src/main/java/com/luxs/copinx/copinx/service/GerenciadorReview.java
+/home/lux/IdeaProjects/Copinx/src/main/java/com/luxs/copinx/copinx/Controller/reviewController.java
+/home/lux/IdeaProjects/Copinx/src/main/java/com/luxs/copinx/copinx/Controller/aguaController.java
+/home/lux/IdeaProjects/Copinx/src/main/java/com/luxs/copinx/copinx/service/Exceptions/aguaInvalidaException.java
+/home/lux/IdeaProjects/Copinx/src/main/java/com/luxs/copinx/copinx/service/Usuario/Usuario.java
+/home/lux/IdeaProjects/Copinx/src/main/java/com/luxs/copinx/copinx/Controller/mainController.java

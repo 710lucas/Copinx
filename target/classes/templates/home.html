@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+    <html xmlns:th="http://www.thymeleaf.org"></html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=0.7">
+        <title>Copinx</title>
+        <link rel="stylesheet" href="/stylePages.css">
+    </head>
+
+    <body>
+
+        <div class="navbar">
+            <div class="copinx" onclick="location.href='/home'">
+                Copinx
+            </div>
+
+            <div class="navbar-item" onclick="goToProfile()">
+                Profile
+            </div>
+            <div class="navbar-item" onclick="location.href='/friends'" id="friendsNav">
+                Friends
+            </div>
+            <div class="navbar-item" onclick="location.href='/waters'" id="watersNav">
+                Waters
+            </div>
+        </div>
+
+        <div class="welcome" id="welcome" th:inline="text">Hi [[${nome}]], check out the waters your friends have been drinking!</div> 
+        <div class="friends" id="friends">
+                <div id="friendMessage" style="margin-top: 50px; transform: translate(0, -50%);">Add new friend</div>
+        </div>
+
+        <div class="welcome" id="newWaters" style="margin-bottom: 15px;">Recent reviews</div> 
+
+        <div class="friends" id="waters" style="margin-top: 0px;">
+
+        </div>
+
+    </body>
+
+    <script>
+
+        var usuarioNome;
+        var listaAmigos;
+        var listaAgua;
+        var recentReviews;
+        loadHome();
+
+        function goToProfile(){
+            location.href="/profile/"+usuarioNome;
+        }
+
+        function fetcReviews(){
+            var url = "/api/reviews"
+            fetch(url, {method: "GET"})
+            .then(function (response){
+                return response.text();
+            })
+            .then(function (text){
+                recentReviews = text
+                loadRecentReviews(text)
+            })
+        }
+
+        function loadHome(){
+            //fetch friends
+
+            var url = "/api/getUsuarioByToken"
+            var cookie = parseCookies()["token"]
+            url+="?token="+cookie
+            fetch(url, {method: "GET"})
+            .then(function (response){
+                if(response.status == 200){
+                    return response.text();
+                }
+                return null
+            })
+            .then(function (text){
+                if(text == null){
+                    return
+                }
+                usuarioNome = text;
+                console.log(text)
+                document.getElementById("welcome").innerText = document.getElementById("welcome").innerText.replace("template", text)
+                loadFriends(text);
+            })
+
+            //fetch new waters
+
+            url = "/api/aguas"
+            fetch(url, {method: "GET"})
+            .then(function (response){
+                return response.text();
+            })
+            .then(function (response){
+                listaAgua = response;
+                //loadWaters(response)
+            })
+
+            fetcReviews()
+        }
+
+        function loadRecentReviews(text){
+            reviews = text.split("\n")
+            for(var i = reviews.length-2; i>=0 && i>reviews.length-6; i--){
+                div = document.createElement("div")
+                div.className+="waterImage"
+                div.setAttribute("id", i)
+
+                nome = document.createElement("div")
+                nome.className+="friendName"
+                nome.innerText = reviews[i].split(";")[1]
+                nome.style.marginTop = "345px";
+
+                div.setAttribute("onclick", "location.href='/water/"+nome.innerText+"'")
+
+                div.appendChild(nome)
+                document.getElementById("waters").prepend(div)
+            }
+        }
+
+        function loadWaters(response){
+            aguas = response.split("\n")
+            for(var i = 0; i<aguas.length-1 && i<5; i++){
+                div = document.createElement("div")
+                div.className+="waterImage"
+                div.setAttribute("id", i)
+
+                nome = document.createElement("div")
+                nome.className+="friendName"
+                nome.innerText = aguas[i].split(";")[0]
+                nome.style.marginTop = "345px";
+
+                div.setAttribute("onclick", "location.href='/water/"+nome.innerText+"'")
+
+                div.appendChild(nome)
+                document.getElementById("waters").prepend(div)
+            }
+        }
+
+
+        function loadFriends(username){
+
+
+
+            url = "/api/usuario/listarSeguindo?nome="+username
+            fetch(url, {method: "GET"})
+            .then(function (response){
+                if(response.status == 200){
+                    return response.text();
+                }
+                else
+                    return null
+            })
+            .then(function (text){
+                if(text == null)
+                    return
+               
+                listaAmigos = text.split("\n");
+                
+            }).then(function (){
+
+                for(var i = 0; i<listaAmigos.length-1 && i<7; i++){
+                    div = document.createElement("div")
+                    div.className+="friendImage"
+                    div.setAttribute("onclick", "friend("+i+")")
+                    div.setAttribute("id", i)
+                    nome = document.createElement("div")
+                    nome.className+="friendName"
+                    nome.innerText=listaAmigos[i]
+                    div.appendChild(nome)
+                    document.getElementById("friends").prepend(div)
+                }
+
+                if(listaAmigos>=7){
+                    document.getElementById("friendImage").innerHTML="See more..."
+                }
+            })
+
+        }
+
+        function friend(number){
+            location.href = "/user/"+listaAmigos[number]
+        }
+
+
+        function parseCookies() {
+            var cookies = document.cookie.split(";");
+
+            var parsedCookies = {};
+            cookies.forEach(function(cookie) {
+                var parts = cookie.split("=");
+                var name = parts[0].trim();
+                var value = parts[1].trim();
+
+                parsedCookies[name] = value;
+            });
+
+            return parsedCookies;
+        }
+
+
+
+    </script>
+
+</html>

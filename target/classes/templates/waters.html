@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Copinx</title>
+        <link rel="stylesheet" href="/stylePages.css">
+        <meta name="viewport" content="width=device-width, initial-scale=0.7">
+    </head>
+
+    <body>
+
+        <div class="navbar">
+            <div class="copinx" onclick="location.href='/home'">
+                Copinx
+            </div>
+
+            <div class="navbar-item" onclick="location.href='/profile/'+usuarioNome">
+                Profile
+            </div>
+            <div class="navbar-item" onclick="location.href='/friends'" id="friendsNav">
+                Friends
+            </div>
+            <div class="navbar-item" onclick="location.href='/waters'" id="watersNav">
+                Waters
+            </div>
+        </div>
+
+        <div class="watersTitle">Waters</div>
+        <div class="waterSearchBarContainer">
+            <input type="text" onkeyup="changeConteudo()" id="searchWater" placeholder="Search water" class="waterSearchBar">
+        </div>
+
+        <div class="waterContainer" id="waters">
+
+        </div>
+
+    </body>
+
+    <script>
+
+        var listaAgua;
+        var conteudo = "";
+        var usuarioNome;
+
+        fetchWaters()
+
+        var url = "/api/getUsuarioByToken"
+        var cookie = parseCookies()["token"]
+        url+="?token="+cookie
+        fetch(url, {method: "GET"})
+        .then(function (response){
+            if(response.status == 200){
+                return response.text();
+            }
+            return null
+        })
+        .then(function (text){
+            if(text == null){
+                return
+            }
+            usuarioNome = text;
+            console.log(text)
+        })
+
+        function changeConteudo(){
+            conteudo = document.getElementById("searchWater").value
+            console.log(conteudo)
+            clearDiv();
+            loadWaters(listaAgua)
+        }
+
+
+        function fetchWaters(){
+            url = "/api/aguas"
+            fetch(url, {method: "GET"})
+            .then(function (response){
+                return response.text();
+            })
+            .then(function (response){
+                listaAgua = response;
+                loadWaters(response)
+            })
+        }
+
+        function clearDiv(){
+            document.getElementById("waters").innerHTML = ""
+        }
+
+        function loadWaters(response){
+            aguas = response.split("\n")
+            for(var i = 0; i<aguas.length-1; i++){
+                div = document.createElement("div")
+                div.className+="waterItem"
+                div.setAttribute("id", i)
+
+                nome = document.createElement("div")
+                nome.className+="friendName"
+                nome.innerText = aguas[i].split(";")[0]
+                nome.style.marginTop = "255px";
+
+                div.setAttribute("onclick", "location.href='/water/"+nome.innerText+"'")
+                div.style.cursor="pointer"
+                div.appendChild(nome)
+                if(nome.innerText.toLowerCase().includes(conteudo.toLowerCase())){
+                    document.getElementById("waters").prepend(div)
+                }
+
+                console.log(nome.innerText)
+                console.log(conteudo)
+            }
+        }
+
+        function parseCookies() {
+            var cookies = document.cookie.split(";");
+
+            var parsedCookies = {};
+            cookies.forEach(function(cookie) {
+                var parts = cookie.split("=");
+                var name = parts[0].trim();
+                var value = parts[1].trim();
+
+                parsedCookies[name] = value;
+            });
+
+            return parsedCookies;
+        }
+
+
+    </script>
+
+
+</html>

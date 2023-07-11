@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Copinx</title>
+        <link rel="stylesheet" href="/stylePages.css">
+        <link rel="stylesheet" href="/styleWater.css">
+        <meta name="viewport" content="width=device-width, initial-scale=0.7">
+    </head>
+
+    <body>
+
+
+        <div class="navbar">
+            <div class="copinx" onclick="location.href='/home'">
+                Copinx
+            </div>
+
+            <div class="navbar-item" onclick="location.href='/profile/'+usuarioNome">
+                Profile
+            </div>
+            <div class="navbar-item" onclick="location.href='/friends'" id="friendsNav">
+                Friends
+            </div>
+            <div class="navbar-item" onclick="location.href='/waters'" id="watersNav">
+                Waters
+            </div>
+        </div>
+
+
+        <div class="waterInfo">
+
+            <div class="waterImg">
+
+                <div class="reviewButton" onclick="document.getElementById('reviewScreen').removeAttribute('hidden')">
+                    <div class="reviewButtonText">
+                    Review water
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="waterText">
+
+                <div class="waterTitle" th:inline="text">
+                    [[${waterName}]]
+                    <div class="waterType">
+                        Empresa
+                    </div>
+                </div>
+
+                <div class="waterDescription" th:inline="text">
+                    [[${waterDescription}]]
+                </div>
+
+                <div class="littleCopos">
+                    <img class="littleCopoGrande" src="/CopoGrande_vazio.svg">
+                    <img class="littleCopoGrande" src="/CopoGrande_vazio.svg">
+                    <img class="littleCopoGrande" src="/CopoGrande_vazio.svg">
+                    <img class="littleCopoGrande" src="/CopoGrande_vazio.svg">
+                    <img class="littleCopoGrande" src="/CopoGrande_vazio.svg">
+                    <br>
+                    <img class="littleCopoGrande" src="/CopoGrande_vazio.svg">
+                    <img class="littleCopoGrande" src="/CopoGrande_vazio.svg">
+                    <img class="littleCopoGrande" src="/CopoGrande_vazio.svg">
+                    <img class="littleCopoGrande" src="/CopoGrande_vazio.svg">
+                    <img class="littleCopoGrande" src="/CopoGrande_vazio.svg">
+                </div>
+
+                <div class="waterDescription" th:inline="text">
+                    [[${waterRating}]]
+                </div>
+
+
+                <div class="recentReviews" id="recentReviews">
+                    Recent reviews
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+
+        <div class="reviewScreen" hidden="true" id="reviewScreen">
+
+            <div class="reviewRectangle">
+                <textarea type="text" class="descriptionReview" id="description" placeholder="Do you wanna say something about this water?"></textarea>
+                <br>
+                <input type="number" min="1" max="10" placeholder="Rating 1-10" class="ratingReview">
+                <br>
+                <br>
+                <div class="buttonsReview">
+                    <div class="sendReview" onclick="review()">
+                        <div class="reviewButtonText">
+                        Add review
+                        </div>
+                    </div>
+                    <div class="cancel" onclick="document.getElementById('reviewScreen').setAttribute('hidden', true)">
+                        <div class="reviewButtonText" style="color: black;">
+                            Cancel
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+
+    <script defer>
+
+        loadCopos();
+        function loadCopos(){
+            nota = document.getElementsByClassName("waterDescription")[1].innerHTML.replaceAll(" ", "").replaceAll("\n", "");
+            console.log(nota);
+            if(nota == "NaN")
+                nota = 0;
+            document.getElementsByClassName("waterDescription")[1].innerHTML = nota+" little copos";
+            
+            divCopos = document.getElementsByClassName("littleCopos")[0];
+            divCopinhos = document.getElementsByClassName("littleCopoGrande");
+            for(var i = 0; i<parseInt(nota); i++){
+                divCopinhos[i].src="/CopoGrande.svg";
+            }
+        }
+
+        loadReviewClick()
+        function loadReviewClick(){
+            reviewButton = document.getElementsByClassName("sendReview")[0]
+            waterName = location.href.split("/")
+            waterName = waterName[waterName.length-1]
+            reviewButton.setAttribute("onclick", "review(\""+waterName+"\")")
+        }
+
+        function review(name){
+
+            var nota_  = document.getElementsByClassName("ratingReview")[0].value;
+            var descricao_ = document.getElementById("description").value;
+
+            var url = "/api/review/add?"
+            url+= new URLSearchParams({agua: name, nota: nota_, descricao: descricao_})
+
+            fetch(url, {method: "POST"})
+            .then(function (response){
+                return response.text();
+            })
+            .then(function (text){
+                alert(text);
+                location.reload();
+            })
+        }
+
+        loadReviews();
+
+        function loadReviews(){
+            waterName = location.href.split("/")
+            waterName = waterName[waterName.length-1]
+            url = "/api/"+waterName+"/getReviews"
+            fetch(url, {method: "GET"})
+            .then(function (response){
+                return response.text();
+            })
+            .then(function (text){
+                reviews = text.split("\n")
+                for(var i = reviews.length-2; i>=0 && i>reviews.length-21; i--){
+                    reviewDiv = document.createElement("div")
+                    reviewDiv.className+="review"
+
+                    reviewName = document.createElement("div")
+                    reviewName.className+="reviewName"
+
+                    reviewDescription = document.createElement("div")
+                    reviewDescription.className+="reviewDescription"
+
+                    reviewName.innerHTML+=reviews[i].split(";")[0]+" - "+reviews[i].split(";")[3]+" little copos"
+                    reviewDescription.innerHTML+=reviews[i].split(";")[2]
+
+                    reviewDiv.appendChild(reviewName)
+                    reviewDiv.appendChild(reviewDescription)
+                    document.getElementById("recentReviews").append(reviewDiv)
+                }
+            })
+        }
+
+    </script>
+
+    <script>
+
+        var listaAgua;
+        var conteudo = "";
+        var usuarioNome;
+
+
+        var url = "/api/getUsuarioByToken"
+        var cookie = parseCookies()["token"]
+        url+="?token="+cookie
+        fetch(url, {method: "GET"})
+        .then(function (response){
+            if(response.status == 200){
+                return response.text();
+            }
+            return null
+        })
+        .then(function (text){
+            if(text == null){
+                return
+            }
+            usuarioNome = text;
+            console.log(text)
+        })
+
+
+        function parseCookies() {
+            var cookies = document.cookie.split(";");
+
+            var parsedCookies = {};
+            cookies.forEach(function(cookie) {
+                var parts = cookie.split("=");
+                var name = parts[0].trim();
+                var value = parts[1].trim();
+
+                parsedCookies[name] = value;
+            });
+
+            return parsedCookies;
+        }
+
+
+    </script>
+
+
+</html>
