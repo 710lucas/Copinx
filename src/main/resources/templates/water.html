@@ -131,7 +131,7 @@
         function loadReviewClick(){
             reviewButton = document.getElementsByClassName("sendReview")[0]
             waterName = location.href.split("/")
-            waterName = waterName[waterName.length-1]
+            waterName = decodeURI(waterName[waterName.length-1])
             reviewButton.setAttribute("onclick", "review(\""+waterName+"\")")
         }
 
