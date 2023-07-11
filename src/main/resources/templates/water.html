@@ -164,7 +164,7 @@
                 return response.text();
             })
             .then(function (text){
-                reviews = text.split("\n")
+                reviews = text.split("[END REVIEW]")
                 for(var i = reviews.length-2; i>=0 && i>reviews.length-21; i--){
                     reviewDiv = document.createElement("div")
                     reviewDiv.className+="review"

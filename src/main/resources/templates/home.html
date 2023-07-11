@@ -101,7 +101,7 @@
         }
 
         function loadRecentReviews(text){
-            reviews = text.split("\n")
+            reviews = text.split("[END REVIEW]")
             for(var i = reviews.length-2; i>=0 && i>reviews.length-6; i--){
                 div = document.createElement("div")
                 div.className+="waterImage"

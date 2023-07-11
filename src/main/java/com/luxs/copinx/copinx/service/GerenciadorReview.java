@@ -3,6 +3,7 @@ package com.luxs.copinx.copinx.service;
 import com.luxs.copinx.copinx.service.Agua.Agua;
 import com.luxs.copinx.copinx.service.Agua.Review;
 import com.luxs.copinx.copinx.service.Exceptions.notaInvalidaException;
+import com.luxs.copinx.copinx.service.Exceptions.reviewException;
 import com.luxs.copinx.copinx.service.Usuario.Usuario;
 import org.springframework.javapoet.ClassName;
 import org.springframework.stereotype.Component;
@@ -28,7 +29,9 @@ public class GerenciadorReview implements Serializable {
         this.reviews = reviews;
     }
 
-    public Review addReview(Usuario autor, String descricao, int nota, Agua agua) throws notaInvalidaException {
+    public Review addReview(Usuario autor, String descricao, int nota, Agua agua) throws notaInvalidaException, reviewException {
+        if(descricao.contains("[END REVIEW]"))
+            throw new reviewException("a descrição da review não pode conter o seguinte texto: [END REVIEW]");
         Review r = new Review(autor, descricao, nota, agua);
         reviews.add(r);
         return r;
@@ -50,7 +53,7 @@ public class GerenciadorReview implements Serializable {
         String out="";
 
         for(Review r : getReviews()){
-            out+=r.getAutor().getNome()+";"+r.getAgua().getNome()+";"+r.getDescricao()+";"+r.getNota()+"\n";
+            out+=r.getAutor().getNome()+";"+r.getAgua().getNome()+";"+r.getDescricao()+";"+r.getNota()+"[END REVIEW]";
         }
 
         return out;

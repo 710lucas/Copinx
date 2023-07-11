@@ -50,10 +50,8 @@ public class reviewController {
 
             return  "Review adicionada com sucesso";
 
-        } catch (aguaInvalidaException | usuarioInvalidoException | notaInvalidaException e) {
+        } catch (aguaInvalidaException | usuarioInvalidoException | notaInvalidaException | reviewException e) {
             return e.getMessage();
-        } catch (reviewException e) {
-            throw new RuntimeException(e);
         }
     }
 
