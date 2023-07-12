@@ -24,19 +24,6 @@ public class aguaController {
             gerenciador.adicionarAgua(new Agua("Indaiá","Água Indaiá"));
             gerenciador.adicionarAgua(new Agua("Minalba", "Água Minalba"));
             gerenciador.adicionarAgua(new Agua("Crystal", "Água Crystal"));
-            gerenciador.adicionarAgua(new Agua("Luiz", "Água da casa de Luiz"));
-            gerenciador.adicionarAgua(new Agua("Lucas", "Água da casa de Lucas"));
-            gerenciador.adicionarAgua(new Agua("Cauê", "Água da casa de Cauê"));
-            gerenciador.adicionarAgua(new Agua("Quintuplos", "Água da casa dos Quintuplos"));
-            gerenciador.adicionarAgua(new Agua("Amy e Mill", "Água da casa de Amy e Mill"));
-            gerenciador.adicionarAgua(new Agua("Lua", "Água da casa de Lua"));
-            gerenciador.adicionarAgua(new Agua("Isa", "Água da casa de Isa"));
-            gerenciador.adicionarAgua(new Agua("Kla", "Água da casa de Kla"));
-            gerenciador.adicionarAgua(new Agua("Karol", "Água da casa de Karol"));
-            gerenciador.adicionarAgua(new Agua("Sofia", "Água da casa de Sofia"));
-            gerenciador.adicionarAgua(new Agua("Campus I", "Água da UFPB - Campus I"));
-            gerenciador.adicionarAgua(new Agua("Campus IV", "Água da UFPB - Campus IV"));
-            gerenciador.adicionarAgua(new Agua("Bougainville", "Água do Bungas"));
         } catch (aguaInvalidaException e) {
             return e.getMessage();
         }
